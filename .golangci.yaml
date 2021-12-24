@@ -1,0 +1,16 @@
+goalrun:
+  concurrency: 6
+  timeout: 1m
+  issues-exit-code: 1
+  tests: false
+  skip-dirs-use-default: true
+  skip-files:
+    - ".*\\.bad\\.go$"
+
+linters-settings:
+  goimports:
+    local-prefixes: github.com/Fe4p3b/go-backend-coursework/
+  gosimple:
+    checks: ["all"]
+  govet:
+    enable-all: true
