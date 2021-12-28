@@ -91,17 +91,16 @@ func clientWriter(conn net.Conn, ch <-chan string) {
 func check() {
 	random()
 	for {
-		select {
-		case ans := <-answers:
-			for k, v := range ans {
-				fmt.Println(v, answer, v == answer)
-				if v == answer {
-					messages <- k + " has won!"
-					random()
-					break
-				}
+		ans := <-answers
+		for k, v := range ans {
+			fmt.Println(v, answer, v == answer)
+			if v == answer {
+				messages <- k + " has won!"
+				random()
+				break
 			}
 		}
+
 	}
 }
 
