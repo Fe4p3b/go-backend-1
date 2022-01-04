@@ -52,6 +52,7 @@ func (h *UploadHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *UploadHandler) uploadGetHandler(w http.ResponseWriter, r *http.Request) {
+	q := r.URL.Query().Get("ext")
 	files, err := ioutil.ReadDir(h.UploadDir)
 	if err != nil {
 		log.Fatal(err)
@@ -59,7 +60,9 @@ func (h *UploadHandler) uploadGetHandler(w http.ResponseWriter, r *http.Request)
 	for _, f := range files {
 		name := f.Name()
 		ext := filepath.Ext(name)
-		fmt.Fprintf(w, "%s %d %s\n", name, f.Size(), ext)
+		if q == "" || q == ext {
+			fmt.Fprintf(w, "%s %d %s\n", name, f.Size(), ext)
+		}
 	}
 }
 
